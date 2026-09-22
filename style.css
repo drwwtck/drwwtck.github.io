@@ -1,17 +1,142 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
-  margin: 0;
-  background: #947706;
-  color: #222;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: #d1ebf6;
+  color: white;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  text-wrap: nowrap;
+  overflow-x: auto;
 }
 
-#all-contents {
-  max-width: 1500px;
-  min-height: 100vh;
+/* NAVIGATION CSS INDEX.HTML */
+nav {
+  background: #4cb4f0;
   margin: 0 auto;
-  padding: 32px 40px;
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+h1 {
+  display: flex;
+  align-items: center;
+  color: white;
+  flex: 1;
+  margin: 0;
+}
+#nav-ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.nav-li {
+  display: inline-block;
+  padding: 0 10px;
+}
+a {
+  text-decoration: none;
+  color: #fff;
+}
+a:link,
+a:visited {
+  background-color: #b0daec;
+  color: #4cb4f0;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 15px;
+}
+
+a:hover,
+a:active {
+  background-color: #fefbba;
+}
+main {
+  background: #b0daec;
+  display: flex;
+  margin-top: 20px;
+  overflow-x: none;
+  border-radius: 15px;
+  color: #4cb4f0;
+}
+.sideBar {
+  margin-right: 10px;
+  padding: 10px;
+}
+.sidebarImg {
+  width: 200px;
+  border-radius: 15px;
+}
+.content {
+  flex: 1;
+  padding: 15px;
+}
+#interests {
+  border-radius: 15px;
+  border: 4px white dotted;
+  padding: 8px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+/* Portfolio styles */
+.content h1 {
+  color: #4cb5e8;
+}
+.content h3 {
+  color: #4cb5e8;
+}
+
+#portfolio {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#portfolio li {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#portfolio a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: #4cb5e8;
+  padding: 16px 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  background: #fbd8de;
+  border: 1px solid #ffd0e1;
+  border-radius: 12px;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+#portfolio a:hover {
+  background: #e9dcef;
+  color: #fff;
+  transform: translateX(4px);
+}
+
+#portfolio a::after {
+  content: "->";
+  font-size: 0.85rem;
+  opacity: 0.4;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
+
+#portfolio a:hover::after {
+  opacity: 1;
 }
