@@ -17,3 +17,10 @@ canvas {
 img {
   display: none;
 }
+
+#levelNum {
+  color: white;
+  position: fixed; 
+  top: 10px;
+  opacity: 50%;
+}
