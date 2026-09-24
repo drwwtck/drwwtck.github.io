@@ -1,6 +1,6 @@
 body {
   margin: 0px;
-  background-color: #202737;
+  background-image: url(images/cinnaBackgroundPlatformer1.png);
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -8,7 +8,10 @@ body {
 }
 
 canvas {
-  background-color: lightblue;
+  background-image: url(images/cinnaBackgroundPlatformer.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   margin: 20px;
   border-radius: 15px;
   border: 5px solid rgba(118, 0, 233, 0.375);
@@ -22,5 +25,5 @@ img {
   color: white;
   position: fixed;
   top: 10px;
-  opacity: 50%;
+  opacity: 70%;
 }
