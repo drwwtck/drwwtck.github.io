@@ -7,9 +7,12 @@
   <script src="jquery.min.js"></script>
   <style>
     .box {
+      background-image: url("imagesB/cinnaPlane.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       width: 70px;
       height: 70px;
-      background-color: teal;
       font-size: 300%;
       text-align: center;
       user-select: none;
@@ -20,20 +23,33 @@
       left: 0px;
     }
 
+    /* 
+    .box img {
+      height: 100%;
+      width: 100%;
+      background-image: url("imagesB/cinnaPlane.png");
+      object-fit: cover;
+    } */
+
     .board {
       height: 100vh;
+      background-color: rgb(169, 235, 255);
     }
 
     .scoreBoard {
-      height: 30px;
-      width: 100px;
-      background-color: black;
-      color: white;
+      height: 100px;
+      width: 200px;
+      background-image: url("imagesB/scoreBoard.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: rgb(0, 175, 219);
       font-size: 30px;
+      place-content: center;
       text-align: center;
       margin: 5;
       position: fixed;
-      padding: 15px;
+      /* padding: 15px; */
     }
   </style>
   <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -51,7 +67,7 @@
       //////////////////////////////////////////////////////////////////
       /////////////////// SETUP DO NOT DELETE //////////////////////////
       //////////////////////////////////////////////////////////////////
-      
+
       var box = jQuery(".box"); // reference to the HTML .box element
       var scoreBoard = jQuery(".scoreBoard")
       var board = jQuery(".board"); // reference to the HTML .board element
@@ -64,6 +80,7 @@
 
       // Every 50 milliseconds, call the update Function (see below)
       setInterval(update, 50);
+      // var interval = setInterval(update, 50);
 
       // Every time the box is clicked, call the handleBoxClick Function (see below)
       box.on("click", handleBoxClick);
@@ -79,6 +96,12 @@
         scoreBoard.text(newText);
       }
 
+      // Endgame function
+
+      // function endGame() {
+      //   clearInterval(interval);
+      // }
+
       //////////////////////////////////////////////////////////////////
       /////////////////// YOUR CODE BELOW HERE /////////////////////////
       //////////////////////////////////////////////////////////////////
@@ -91,6 +114,10 @@
       var speedX = 10;
       var speedY = 10;
       var speedMult = 3;
+      var cinnaUpRight = "url('imagesB/cinnaPlane/CinnaUpRight')";
+      var cinnaDownRight = "url('imagesB/cinnaPlane/CinnaDownRight')";
+      var cinnaUpLeft =  "url('imagesB/cinnaPlane/CinnaUpLeft')";
+      var cinnaDownLeft = "url('imagesB/cinnaPlane/CinnaDownLeft')";
 
       /**
        * This Function will be called 20 times/second.
@@ -108,6 +135,16 @@
           speedY *= -1;
         }
         moveBoxTo(positionX, positionY);
+
+        if (speedX > 0 && speedY < 0) {
+          box.css("background-image", cinnaUpRight)
+        } else if(speedX > 0 && speedY > 0) {
+          box.css("background-image", cinnaDownRight)
+        } else if (speedX < 0 && speedY < 0) {
+          box.css("background-image", cinnaUpLeft)
+        } else if (speedX < 0 && speedY > 0) {
+          box.css("background-image", cinnaDownLeft)
+        }
       }
 
       /**
@@ -122,8 +159,9 @@
         var randNumY = Math.random() * boardHeight;
         positionX = randNumX;
         positionY = randNumY;
-        changeBoxText(points);
         points++;
+        changeBoxText(points);
+
         if (points % 3 === 0)
           speedX = points * speedMult + 10;
         speedY = points * speedMult + 10;
