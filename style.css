@@ -11,6 +11,8 @@
   font-style: normal;
 }
 
+/* CSS FOR WEBSITE */
+
 h1 {
   font-family: Cloud;
 }
@@ -24,7 +26,7 @@ body {
   overflow-x: auto;
 }
 
-/* NAVIGATION CSS INDEX.HTML */
+/* NAVIGATION CSS  */
 nav {
   background: #4cb4f0;
   margin: 0 auto;

@@ -23,14 +23,6 @@
       left: 0px;
     }
 
-    /* 
-    .box img {
-      height: 100%;
-      width: 100%;
-      background-image: url("imagesB/cinnaPlane.png");
-      object-fit: cover;
-    } */
-
     .board {
       height: 100vh;
       background-color: rgb(169, 235, 255);
@@ -39,6 +31,8 @@
     .scoreBoard {
       height: 100px;
       width: 200px;
+      left: 5px;
+      top: 5px;
       background-image: url("imagesB/scoreBoard.png");
       background-size: contain;
       background-repeat: no-repeat;
@@ -51,20 +45,29 @@
       position: fixed;
       /* padding: 15px; */
     }
+
+    #reset {
+      height: 100px;
+      width: 100px;
+      right: 5px;
+      top: 5px;
+      position: fixed;
+    }
   </style>
-  <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body class="board">
   <!-- HTML for the box -->
   <div class="box"></div>
-  <div class="scoreBoard">???</div>
+  <div class="scoreBoard">0</div>
+  <div id = reset>R</div>
   <script>
     (function () {
       "use strict";
       /* global jQuery */
 
-      //////////////////////////////////////////////////////////////////
+      /////////////////////////// ///////////////////////////////////////
       /////////////////// SETUP DO NOT DELETE //////////////////////////
       //////////////////////////////////////////////////////////////////
 
@@ -79,12 +82,13 @@
       });
 
       // Every 50 milliseconds, call the update Function (see below)
-      setInterval(update, 50);
+      // setInterval(update, 50);
+      var interval = setInterval(update, 50);
       // var interval = setInterval(update, 50);
 
       // Every time the box is clicked, call the handleBoxClick Function (see below)
       box.on("click", handleBoxClick);
-
+      board.on("click", boardClick);
       // moves the Box to a new position on the screen along the X-Axis
       function moveBoxTo(newPositionX, newPositionY) {
         box.css("left", newPositionX);
@@ -98,9 +102,22 @@
 
       // Endgame function
 
-      // function endGame() {
-      //   clearInterval(interval);
-      // }
+      function endGame(outcome) {
+        clearInterval(interval);
+        switch (outcome){
+          case 'win':
+            // when 'win' argument is used
+          break;
+          case 'lose':
+            // when 'lose' argument is used
+          break;
+          case 'reset':
+            // when 'reset' argument is used
+          break;
+          default:
+            console.log("error in endGame function");
+        }
+      }
 
       //////////////////////////////////////////////////////////////////
       /////////////////// YOUR CODE BELOW HERE /////////////////////////
@@ -111,12 +128,13 @@
       var positionX = 0;
       var positionY = 0;
       var points = 0;
+      var strikes = 0;
       var speedX = 10;
       var speedY = 10;
       var speedMult = 3;
       var cinnaUpRight = "url('imagesB/cinnaPlane/CinnaUpRight.png')";
       var cinnaDownRight = "url('imagesB/cinnaPlane/CinnaDownRight.png')";
-      var cinnaUpLeft =  "url('imagesB/cinnaPlane/CinnaUpLeft.png')";
+      var cinnaUpLeft = "url('imagesB/cinnaPlane/CinnaUpLeft.png')";
       var cinnaDownLeft = "url('imagesB/cinnaPlane/CinnaDownLeft.png')";
 
       /**
@@ -138,7 +156,7 @@
 
         if (speedX > 0 && speedY < 0) {
           box.css("background-image", cinnaUpRight)
-        } else if(speedX > 0 && speedY > 0) {
+        } else if (speedX > 0 && speedY > 0) {
           box.css("background-image", cinnaDownRight)
         } else if (speedX < 0 && speedY < 0) {
           box.css("background-image", cinnaUpLeft)
@@ -162,9 +180,22 @@
         points++;
         changeBoxText(points);
 
-        if (points % 3 === 0)
+        if (points % 3 === 0) {
           speedX = points * speedMult + 10;
-        speedY = points * speedMult + 10;
+          speedY = points * speedMult + 10;
+        }
+
+        if (points === 10) {
+          endGame('win');
+        }
+      }
+
+      function boardClick() {
+        strikes++;
+
+        if (strikes === 10) {
+          endGame('lose');
+        }
       }
 
 
