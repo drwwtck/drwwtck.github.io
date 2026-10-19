@@ -5,7 +5,13 @@
   <meta charset="utf-8" />
   <title>Bouncing Box</title>
   <script src="jquery.min.js"></script>
+  <!-- FONTS EMBED BELOW -->
+ 
+  <!-- FONTS ENBED ABOVE -->
   <style>
+    /* FONTS EMBED BELOW */
+    
+    /* FONTS EMBED ABOVE */
     .box {
       background-image: url("imagesB/cinnaPlane.png");
       background-size: contain;
@@ -22,12 +28,10 @@
       /* Change me! */
       left: 0px;
     }
-
     .board {
       height: 100vh;
       background-color: rgb(169, 235, 255);
     }
-
     .scoreBoard {
       height: 100px;
       width: 200px;
@@ -45,13 +49,54 @@
       position: fixed;
       /* padding: 15px; */
     }
-
     #reset {
       height: 100px;
       width: 100px;
+      background-image: url("imagesB/resetButton.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       right: 5px;
       top: 5px;
       position: fixed;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modalContent {
+      background-color: rgb(164, 255, 255);
+      color: rgb(0, 173, 241);
+      margin: 15% auto;
+      text-align: center;
+      padding: 20px;
+      border: 1px solid;
+      border-color: white;
+      width: 80%;
+    }
+
+    .closeAndReset {
+      color: white;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .closeAndReset:hover,
+    .closeAndReset:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
     }
   </style>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -61,7 +106,17 @@
   <!-- HTML for the box -->
   <div class="box"></div>
   <div class="scoreBoard">0</div>
-  <div id = reset>R</div>
+  <div id=reset></div>
+
+  <!-- Modal Popups: https://www.w3schools.com/howto/howto_css_modals.asp -->
+
+  <div id="endGameModal" class="modal" class="caveat">
+    <div class="modalContent">
+      <span class="closeAndReset">&times;</span>
+      <h2 id="endGameMessage">error</h2>
+    </div>
+  </div>
+
   <script>
     (function () {
       "use strict";
@@ -74,6 +129,8 @@
       var box = jQuery(".box"); // reference to the HTML .box element
       var scoreBoard = jQuery(".scoreBoard")
       var board = jQuery(".board"); // reference to the HTML .board element
+      var reset = jQuery("#reset");
+      var resetModal = jQuery(".closeAndReset");
       var boardWidth = board.width(); // the maximum X-Coordinate of the screen
       var boardHeight = jQuery(window).height();
       // update the boardWidth variable when the window is resized
@@ -89,6 +146,10 @@
       // Every time the box is clicked, call the handleBoxClick Function (see below)
       box.on("click", handleBoxClick);
       board.on("click", boardClick);
+
+      reset.on("click", resetGame1);
+      resetModal.on("click", resetGame1);
+
       // moves the Box to a new position on the screen along the X-Axis
       function moveBoxTo(newPositionX, newPositionY) {
         box.css("left", newPositionX);
@@ -102,20 +163,38 @@
 
       // Endgame function
 
+      const popup = document.getElementById('endGameModal');
+      const popupMessage = document.getElementById('endGameMessage');
+      const resetGame = document.getElementById('closeAndReset');
+
       function endGame(outcome) {
         clearInterval(interval);
-        switch (outcome){
+        switch (outcome) {
           case 'win':
-            // when 'win' argument is used
-          break;
+            popupMessage.textContent = "You Win!";
+            popup.style.display = "block";
+            break;
           case 'lose':
-            // when 'lose' argument is used
-          break;
+            popupMessage.textContent = "You Lose!"
+            popup.style.display = "block";
+            break;
           case 'reset':
-            // when 'reset' argument is used
-          break;
-          default:
+            popup.style.display = "none";
             console.log("error in endGame function");
+            positionX = 0;
+            positionY = 0;
+            points = 0;
+            strikes = 0;
+            speedX = 10;
+            speedY = 10;
+
+            changeBoxText(points);
+            moveBoxTo(positionX, positionY);
+
+            interval = setInterval(update, 50);
+            break;
+          default:
+            alert("Error in code!");
         }
       }
 
@@ -196,6 +275,9 @@
         if (strikes === 10) {
           endGame('lose');
         }
+      }
+      function resetGame1() {
+        endGame('reset')
       }
 
 
