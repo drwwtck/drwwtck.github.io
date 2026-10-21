@@ -117,15 +117,6 @@
     </div>
   </div>
 
-  <div id="startMenu" class="modal">
-    <div class="modalConent">
-      <h2>Welcome! Select a difficulty!</h2>
-      <img src="fsd-projects/bouncing-box/imagesB/startMenu/easy.png" id="easyBtn">
-      <img src="fsd-projects/bouncing-box/imagesB/startMenu/medium.png" id="normalBtn">
-      <img src="fsd-projects/bouncing-box/imagesB/startMenu/hard.png*/" id="hardBtn">
-    </div>
-  </div>
-
   <script>
     (function () {
       "use strict";
@@ -134,15 +125,6 @@
       /////////////////////////// ///////////////////////////////////////
       /////////////////// SETUP DO NOT DELETE //////////////////////////
       //////////////////////////////////////////////////////////////////
-
-      //start menu//
-
-      const startMenu = jQuery("#startMenu");
-      const easyBtn = jQuery("#easyBtn");
-      const normalBtn = jQuery("#normalBtn");
-      const hardBtn = jQuery("#hardBtn");
-
-      //end of start menu//
 
       const box = jQuery(".box"); // reference to the HTML .box element
       const scoreBoard = jQuery(".scoreBoard")
@@ -178,40 +160,7 @@
         scoreBoard.text(newText);
       }
 
-      // Start Menu
-
-      const openMenu = document.getElementById('startMenu')
-
-      /* 
-      Pseudo Code:
-
-      At start.. when window is opened 'openMenu.style.display = "block";' needs to be executed...
-
-      The menu must be styled to be pretty.
-
-      When happy face is clicked... easy presets should be set
-
-      When sleeping face is clicked... medium/normal presets should be set
-
-      When angry face is clicked... hard presets should be clicked
-
-      !!WITHIN THE END GAME MODEL!!
-        &times should lead back to the starting menu and so should the reset button... they are connected so it should change at the same time.
-      
-      Once all of the above is completed... clean up code:
-        - endGame function declaration should be changed to a conditional because it is not a loop so "switch" "case" "break;" is major overkill.
-        - check for scope errors... when in doubt try using modern keywords like "const" and "let"
-        - could an array be added?
-            if used...create a comment to explained why it was used
-        - could a loop be added? If so what kind?
-            For | While | Do While | .forEach method | for...of | for...in 
-            if used...create a comment to explained why it was used
-      !!REMEMBER!!
-      If stuck... search on w3 schools or ask ms. waters
-      DRY
-      use concatenation for simple string construction... use template literals for more complex string construction
-      */
-
+     
       // Endgame function
 
       const popup = document.getElementById('endGameModal');
